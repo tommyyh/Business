@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import { get } from './lib/axios';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Register from './pages/Register/Register';
@@ -27,7 +27,7 @@ function App() {
 
     useEffect(() => {
       (async () => {
-        const res = await axios.get('/user/authenticate/');
+        const res = await get('/user/authenticate/');
         const { status, name, surname, dob, email } = res.data;
 
         if (status === 401) {
@@ -57,7 +57,7 @@ function App() {
 
     useEffect(() => {
       (async () => {
-        const res = await axios.get('/user/authenticate/');
+        const res = await get('/user/authenticate/');
         const { status, name, surname, dob, email } = res.data;
 
         if (status === 401) {
@@ -89,7 +89,7 @@ function App() {
 
     useEffect(() => {
       (async () => {
-        const res = await axios.get('/user/authenticate/');
+        const res = await get('/user/authenticate/');
         const { status, name, surname, dob, email } = res.data;
 
         if (status === 401) {

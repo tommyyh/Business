@@ -3,7 +3,7 @@ import css from './h.module.scss';
 import { Link } from 'react-router-dom';
 import Hamburger from '../../assets/img/hamburger.svg';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { del } from '../../lib/axios';
 import { logout as signOut } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
@@ -12,7 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const logout = async () => {
-    const res = await axios.delete('/user/logout/');
+    const res = await del('/user/logout/');
 
     if (res.data.status !== 200) return;
 

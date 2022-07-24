@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './m.module.scss';
-import axios from 'axios';
+import { post } from '../../../../lib/axios';
 
 const Main = () => {
   const [error, setError] = useState('');
@@ -17,7 +17,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const submit = async () => {
-    const res = await axios.post('/user/register/', {
+    const res = await post('/user/register/', {
       name: values.name,
       surname: values.surname,
       dob: values.dob,

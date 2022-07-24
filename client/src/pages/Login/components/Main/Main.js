@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './m.module.scss';
-import axios from 'axios';
+import { post } from '../../../../lib/axios';
 import { useDispatch } from 'react-redux';
 import {
   setDob,
@@ -22,7 +22,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const submit = async () => {
-    const res = await axios.post('/user/login/', {
+    const res = await post('/user/login/', {
       email: values.email,
       password: values.password,
     });
