@@ -1,0 +1,103 @@
+@import "../../../../global_css/variables.scss";
+
+.community_cont {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  width: 100%;
+}
+
+.community {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 1280px;
+  height: 725px;
+
+  & h2 {
+    font-size: 2rem;
+  }
+
+  & a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.4rem;
+    width: 22rem;
+    height: 3.6rem;
+    margin-top: 1.9rem;
+
+    background: $accent-color;
+    border: none;
+    color: #fff;
+    border-radius: 10rem;
+    cursor: pointer;
+    transition: ease 250ms;
+    text-decoration: none;
+
+    &:hover {
+      background: $hover;
+      width: 21.2rem;
+    }
+  }
+}
+
+.community_mid {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 3.2rem 4rem 1.5rem 4rem;
+}
+
+.community_pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  & img {
+    width: 13rem;
+  }
+
+  & h3 {
+    font-size: 1.3rem;
+
+    margin-top: 1.7rem;
+  }
+
+  & p {
+    margin: 1rem 10% 0 10%;
+
+    color: $text-color;
+    line-height: 1.68rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .community_mid {
+    flex-direction: column;
+  }
+
+  .community {
+    margin-top: 480px;
+    margin-bottom: 600px;
+    position: block;
+  }
+
+  .community_pillar {
+    margin-top: 80px;
+  }
+
+  .community a {
+    width: 255px;
+    // height: 0px;
+
+    font-size: 21px;
+  }
+}

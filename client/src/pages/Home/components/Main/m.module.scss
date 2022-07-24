@@ -1,0 +1,190 @@
+@import "../../../../global_css/variables.scss";
+
+.phone_bubble1,
+.phone_bubble2 {
+  display: none;
+  position: absolute;
+  z-index: -20;
+
+  border-radius: 400px;
+}
+
+.main_cont {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 1280px;
+  height: 616px;
+
+  & h1 {
+    text-align: center;
+
+    font-size: 2.7rem;
+    margin: 2rem 30% 0 30%;
+  }
+
+  & p {
+    text-align: center;
+
+    font-size: 1.05rem;
+    margin: 1rem 30% 0 30%;
+
+    color: $text-color;
+  }
+
+  & a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.4rem;
+    width: 22rem;
+    height: 3.6rem;
+    margin-top: 1.9rem;
+
+    background: $accent-color;
+    border: none;
+    color: #fff;
+    border-radius: 10rem;
+    cursor: pointer;
+    transition: ease 250ms;
+    text-decoration: none;
+
+    &:hover {
+      background: $hover;
+      width: 21.2rem;
+    }
+  }
+}
+
+// Side images
+.main_img1,
+.main_img2 {
+  position: absolute;
+}
+
+.main_img1 {
+  bottom: 0;
+  left: 4rem;
+}
+
+.main_img2 {
+  top: 4.8rem;
+  right: 4rem;
+}
+
+.main_circles1 {
+  position: absolute;
+  left: 0;
+  top: 20%;
+}
+
+.main_circles2 {
+  position: absolute;
+  right: 0;
+  bottom: 4%;
+}
+
+@media screen and (max-width: 700px) {
+  .main {
+    width: 700px;
+  }
+
+  .main_img1,
+  .main_img2 {
+    display: none;
+  }
+
+  .main h1 {
+    width: 260px;
+
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 148.5%;
+    /* or 36px */
+
+    text-align: center;
+    letter-spacing: 0.065em;
+
+    color: #000000;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .main_circles1,
+  .main_circles2 {
+    display: none;
+  }
+
+  .main h1 {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 148.5%;
+    /* or 36px */
+
+    text-align: center;
+    letter-spacing: 0.065em;
+  }
+
+  .main p {
+    width: 281px;
+    margin-top: 50px;
+
+    font-size: 13px;
+    line-height: 148.5%;
+    /* or 19px */
+
+    text-align: center;
+
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .main {
+    position: relative;
+    bottom: 60px;
+  }
+
+  .main a {
+    width: 255px;
+    height: 40px;
+
+    font-size: 21px;
+  }
+
+  .phone_bubble1,
+  .phone_bubble2 {
+    display: block;
+    position: absolute;
+    z-index: -20;
+
+    border-radius: 400px;
+  }
+
+  .phone_bubble1 {
+    left: 246px;
+    top: 224px;
+
+    background: rgba(165, 231, 158, 0.4);
+    border-radius: 400px 0px 0px 400px;
+  }
+
+  .phone_bubble2 {
+    width: 208px;
+    height: 85px;
+    left: -74px;
+    top: 314px;
+
+    background: rgba(224, 231, 251, 0.4);
+  }
+}
