@@ -39,29 +39,22 @@ const Header = () => {
             <li>
               <Link to={'/'}>Contact Us</Link>
             </li>
+            {!user.loggedIn ? (
+              <li>
+                <Link to={'/login'}>Login</Link>
+              </li>
+            ) : (
+              <li className={css.logout} onClick={logout}>
+                Logout
+              </li>
+            )}
           </ul>
         </div>
 
         <div className={css.nav_bottom}>
-          {!user.loggedIn ? (
-            <ul>
-              <li>
-                <Link to={'/login'}>Login</Link>
-              </li>
-              <li>
-                <Link to={'/sign-up'}>Sign Up</Link>
-              </li>
-            </ul>
-          ) : (
-            <ul>
-              <li>
-                <Link to={'/login'}>Profile</Link>
-              </li>
-              <li className={css.logout} onClick={logout}>
-                Logout
-              </li>
-            </ul>
-          )}
+          <div className={css.open_app}>
+            <Link to='/app'>Open App</Link>
+          </div>
         </div>
       </nav>
     </header>

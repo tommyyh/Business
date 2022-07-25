@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import css from './m.module.scss';
 import { post } from '../../../../lib/axios';
 import { useDispatch } from 'react-redux';
@@ -39,7 +39,7 @@ const Main = () => {
       dispatch(setDob(dob));
       dispatch(login());
 
-      navigate('/');
+      navigate('/app');
     }
   };
 
@@ -83,6 +83,10 @@ const Main = () => {
         </div>
 
         <button onClick={submit}>Login</button>
+
+        <p>
+          Don't have an account yet? <Link to='/sign-up'>Register</Link>
+        </p>
       </div>
     </main>
   );

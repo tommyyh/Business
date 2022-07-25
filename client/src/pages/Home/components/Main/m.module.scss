@@ -1,4 +1,4 @@
-@import "../../../../global_css/variables.scss";
+@import '../../../../global_css/variables.scss';
 
 .phone_bubble1,
 .phone_bubble2 {
@@ -58,7 +58,7 @@
     color: #fff;
     border-radius: 10rem;
     cursor: pointer;
-    transition: ease 250ms;
+    transition: $transition;
     text-decoration: none;
 
     &:hover {
