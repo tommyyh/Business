@@ -12,6 +12,7 @@ import About from './pages/About/About';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import AppHome from './app/Home/index';
+import Meet from './app/Meet/Meet';
 import {
   setDob,
   setEmail,
@@ -94,6 +95,11 @@ function App() {
           exact
           path='/app'
           element={<ModifiedRoute Component={AppHome} type='private' />}
+        />
+        <Route
+          exact
+          path='/app/meet'
+          element={<ModifiedRoute Component={Meet} type='private' />}
         />
       </Routes>
     </Router>

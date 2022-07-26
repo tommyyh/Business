@@ -9,6 +9,7 @@ export const userSlice = createSlice({
       email: '',
       dob: '',
       loggedIn: false,
+      friendsOpen: false,
     },
   },
   reducers: {
@@ -30,10 +31,20 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.value.loggedIn = false;
     },
+    friendsOpen: (state, data) => {
+      state.value.friendsOpen = data;
+    },
   },
 });
 
-export const { setName, setSurname, setEmail, setDob, login, logout } =
-  userSlice.actions;
+export const {
+  setName,
+  setSurname,
+  setEmail,
+  setDob,
+  login,
+  logout,
+  friendsOpen,
+} = userSlice.actions;
 
 export default userSlice.reducer;

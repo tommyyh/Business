@@ -1,0 +1,33 @@
+@import '../../../../global_css/variables.scss';
+
+.friends_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100%;
+  width: 7rem;
+  position: fixed;
+  z-index: 100;
+  left: -7rem;
+  top: 0;
+  padding: 1.2rem 0 1.2rem 0;
+
+  background: #323232;
+  transition: $transition;
+}
+
+.friends_list_open {
+  left: 7rem;
+}
+
+.add_friends {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.95rem;
+  height: 2.95rem;
+  border-radius: 50%;
+  background: #6d6d6d;
+}

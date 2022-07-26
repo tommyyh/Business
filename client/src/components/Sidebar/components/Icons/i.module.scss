@@ -1,0 +1,23 @@
+.sidebar_up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  & .sidebar_icon {
+    margin-top: 0.33rem;
+  }
+}
+
+.sidebar_bot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  & .sidebar_icon {
+    margin-bottom: 0.33rem;
+  }
+}
