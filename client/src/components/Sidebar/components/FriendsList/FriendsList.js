@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './f.module.scss';
-import { FaUserPlus } from 'react-icons/fa';
+import UserImg from '../../../../assets/img/user.png';
 
 const FriendsList = ({ friendsOpen }) => {
   return (
@@ -11,8 +11,68 @@ const FriendsList = ({ friendsOpen }) => {
           : css.friends_list
       }
     >
-      <div className={css.add_friends}>
-        <FaUserPlus size={23} />
+      <div className={css.friends_add_block}>
+        <p>Add a Friend</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
+      </div>
+
+      <div className={css.friends_block}>
+        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <p>Tyrone Smith</p>
       </div>
     </div>
   );

@@ -63,7 +63,8 @@ export const CommentsIcon = ({ active }) => {
 
 export const FriendsIcon = ({ friendsOpen, setFriendsOpen }) => {
   return (
-    <div
+    <Link
+      to=''
       className={
         friendsOpen
           ? `${css.sidebar_icon} ${css.sidebar_icon_friends}`
@@ -77,7 +78,7 @@ export const FriendsIcon = ({ friendsOpen, setFriendsOpen }) => {
         color={friendsOpen ? '#262626' : '#fff'}
       />
       <p className={css.icon_text}>Friends List</p>
-    </div>
+    </Link>
   );
 };
 

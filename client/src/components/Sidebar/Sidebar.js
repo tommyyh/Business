@@ -11,8 +11,6 @@ const Sidebar = () => {
     .payload;
   const dispatch = useDispatch();
 
-  console.log(friendsOpen);
-
   useEffect(() => {
     const path = window.location.pathname.split('/')[2];
 
