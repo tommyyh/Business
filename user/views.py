@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import AccountSerializer
-from .models import Account
+from .serializers import AccountSerializer, FriendRequestSerializer
+from .models import Account, FriendRequest
 import bcrypt
 import jwt
 
@@ -21,6 +21,10 @@ def register(request):
   if Account.objects.filter(email = request.data['email']):
     return Response({ 'status': 400, 'msg': 'Email is already taken' })
 
+  # Check if username is taken
+  if Account.objects.filter(username = request.data['username']):
+    return Response({ 'status': 400, 'msg': 'Username is already taken' })
+
   # Check if password is at least 6 letters
   if not len(request.data['password']) > 5:
     return Response({
@@ -37,6 +41,7 @@ def register(request):
   serializer = AccountSerializer(data = {
     'name': request.data['name'],
     'surname': request.data['surname'],
+    'username': request.data['username'],
     'dob': request.data['dob'],
     'email': request.data['email'],
     'password': hashedPassword.decode("utf-8"),
@@ -75,6 +80,7 @@ def login(request):
       'id': user.id,
       'name': user.name,
       'surname': user.surname,
+      'username': user.username,
       'email': user.email,
     }
 
@@ -86,6 +92,7 @@ def login(request):
       'status': 200,
       'name': user.name,
       'surname': user.surname,
+      'username': user.username,
       'dob': user.dob,
       'email': user.email,
     })
@@ -111,11 +118,12 @@ def authenticate(request):
       request.session['user'] = token
 
       return Response({
-      'status': 200,
-      'name': account.name,
-      'surname': account.surname,
-      'dob': account.dob,
-      'email': account.email,
+        'status': 200,
+        'name': account.name,
+        'surname': account.surname,
+        'username': account.username,
+        'dob': account.dob,
+        'email': account.email,
       })
 
     except:
@@ -139,3 +147,43 @@ def logout(request):
   response.delete_cookie('token')
 
   return response
+
+@api_view(['POST'])
+def send_request(request): # Error handling for not found users
+  username = request.data['username']
+  user = Account.objects.get(username=username)
+  session_user = request.session['user']
+  logged_user = Account.objects.get(id=session_user['id'])
+
+  if session_user['username'] != username:
+    FriendRequest.objects.create(sender=logged_user, receiver=user)
+
+    return Response({ 'status': 200 })
+  else:
+    return Response({ 'status': 400, 'msg': 'Cannot add yourself' })
+
+@api_view(['GET'])
+def get_requests(request): # Handle error where they have no friends :(
+  try:
+    session_user = request.session['user']
+    friend_request = FriendRequest.objects.filter(receiver=session_user['id'])
+    serializer = FriendRequestSerializer(friend_request, many=True)
+
+    return Response({ 'status': 200, 'data': serializer.data })
+  except:
+    return Response({ 'status': 400, 'msg': 'Unable to show friend requests' })
+
+@api_view(['POST'])
+def request_response(request):
+  action = request.data['action']
+  username = request.data['username']
+  receiver = request.data['receiver']
+
+  try:
+    # Update friend request status
+    friend_request = FriendRequest.objects.get(sender__username=username, receiver__username=receiver)
+    friend_request.delete()
+
+    return Response({ 'status': 200 })
+  except:
+    return Response({ 'status': 400 })

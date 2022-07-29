@@ -9,6 +9,7 @@ const Main = () => {
   const [values, setValues] = useState({
     name: '',
     surname: '',
+    username: '',
     dob: '',
     email: '',
     password: '',
@@ -20,6 +21,7 @@ const Main = () => {
     const res = await post('/user/register/', {
       name: values.name,
       surname: values.surname,
+      username: values.username,
       dob: values.dob,
       email: values.email,
       password: values.password,
@@ -85,6 +87,23 @@ const Main = () => {
         </div>
 
         <div className={css.form2}>
+          <div className={css.input_username}>
+            <label>Username</label>
+            <input
+              type='text'
+              placeholder='jacob2001'
+              onKeyPress={(event) => {
+                if (!/^[a-zA-Z0-9_]*$/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              value={values.username}
+              onChange={(e) =>
+                setValues({ ...values, username: e.target.value })
+              }
+            />
+          </div>
+
           <div className={css.input_email}>
             <label>Email Address</label>
             <input

@@ -20,6 +20,7 @@ import {
   setSurname,
   login,
   logout,
+  setUsername,
 } from './features/user/userSlice';
 
 function App() {
@@ -31,12 +32,13 @@ function App() {
     useEffect(() => {
       (async () => {
         const res = await get('/user/authenticate/');
-        const { status, name, surname, dob, email } = res.data;
+        const { status, name, surname, dob, email, username } = res.data;
 
         if (status === 401) {
           dispatch(logout());
           dispatch(setName(undefined));
           dispatch(setSurname(undefined));
+          dispatch(setUsername(undefined));
           dispatch(setDob(undefined));
           dispatch(setEmail(undefined));
           setLoading(false);
@@ -47,6 +49,7 @@ function App() {
         dispatch(login());
         dispatch(setName(name));
         dispatch(setSurname(surname));
+        dispatch(setUsername(username));
         dispatch(setDob(dob));
         dispatch(setEmail(email));
         setLoading(false);

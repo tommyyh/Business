@@ -9,6 +9,7 @@ import {
   setName,
   setSurname,
   login,
+  setUsername,
 } from '../../../../features/user/userSlice';
 
 const Main = () => {
@@ -27,7 +28,7 @@ const Main = () => {
       password: values.password,
     });
 
-    const { status, msg, name, surname, dob, email } = res.data;
+    const { status, msg, name, surname, dob, email, username } = res.data;
 
     if (status === 400) {
       setError(msg);
@@ -35,6 +36,7 @@ const Main = () => {
     } else {
       dispatch(setName(name));
       dispatch(setSurname(surname));
+      dispatch(setUsername(username));
       dispatch(setEmail(email));
       dispatch(setDob(dob));
       dispatch(login());

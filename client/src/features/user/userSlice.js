@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     value: {
       name: '',
       surname: '',
+      username: '',
       email: '',
       dob: '',
       loggedIn: false,
@@ -18,6 +19,9 @@ export const userSlice = createSlice({
     },
     setSurname: (state, data) => {
       state.value.surname = data;
+    },
+    setUsername: (state, data) => {
+      state.value.username = data;
     },
     setEmail: (state, data) => {
       state.value.email = data;
@@ -40,6 +44,7 @@ export const userSlice = createSlice({
 export const {
   setName,
   setSurname,
+  setUsername,
   setEmail,
   setDob,
   login,
