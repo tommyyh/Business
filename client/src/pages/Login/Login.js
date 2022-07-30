@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import Loading from '../../components/Loading/Loading';
 import Main from './components/Main/Main';
+import Footer from '../../components/Footer/Footer';
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
@@ -21,6 +22,7 @@ const Login = () => {
     <>
       <Header />
       <Main />
+      <Footer />
     </>
   );
 };

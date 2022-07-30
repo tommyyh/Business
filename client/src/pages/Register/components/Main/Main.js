@@ -55,7 +55,7 @@ const Main = () => {
             <h1 className={css.signup_title}>Sign Up Page</h1>
             <p className={css.signup_par}>lacus sed turpis tincidunt id aliquet risus feugiat in ante </p>
 
-            <div className={`${css.form1} ${css.form_cont}`}>
+            <div className={`${css.form1} ${css.active_form}`}>
               <div className={`${css.input_name} ${css.form}`}>
                 <label className={`${css.label}`}>First Name</label>
                 <input
@@ -92,7 +92,7 @@ const Main = () => {
               <button className={`${css.continueBtn} ${css.form_btn}`}>Continue</button>
             </div>
 
-            <div className={`${css.form2} ${css.form_cont}`}>
+            <div className={`${css.form2}`}>
               <div className={`${css.input_email} ${css.form}`}>
                 <label className={`${css.label}`}>Email Address</label>
                 <input
