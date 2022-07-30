@@ -218,3 +218,14 @@ def friends_list(request):
   serializer = FriendshipSerializer(user.user.all(), many=True)
   
   return Response({ 'status': 200, 'data': serializer.data })
+
+@api_view(['POST'])
+def remove_friend(request):
+  friend_username = request.data['friendUsername']
+  session_user = request.session['user']
+  friendship = Friendship.objects.filter(user__username=friend_username).filter(user__username=session_user['username'])
+
+  if friendship.exists():
+    friendship.delete()
+
+  return Response({ 'status': 200 })

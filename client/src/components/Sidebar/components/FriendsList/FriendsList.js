@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import css from './f.module.scss';
-import UserImg from '../../../../assets/img/user.png';
 import { get, post } from '../../../../lib/axios';
+import Friend from '../Friend/Friend';
 
 const FriendsList = ({ friendsOpen, setAddOpen }) => {
   const [friends, setFriends] = useState([]);
@@ -109,10 +109,12 @@ const FriendsList = ({ friendsOpen, setAddOpen }) => {
         ))}
 
       {friends.map((friend) => (
-        <div className={css.friends_block} key={friend.id}>
-          <img src={UserImg} alt='user profile' className={css.user_profile} />
-          <p>{`${friend.name} ${friend.surname}`}</p>
-        </div>
+        <Friend
+          friend={friend}
+          key={friend.id}
+          setFriends={setFriends}
+          friends={friends}
+        />
       ))}
     </div>
   );

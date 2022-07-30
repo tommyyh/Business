@@ -60,12 +60,11 @@
   }
 }
 
-.friends_add_block,
-.friends_block {
+.friends_add_block {
   display: flex;
   align-items: center;
 
-  padding: 0.6rem;
+  padding: 0.6rem 0.8rem 0.6rem 0.6rem;
 
   background: #404040;
   border-radius: 7px;
@@ -79,9 +78,4 @@
   &:hover {
     background: #464646;
   }
-}
-
-.friends_block {
-  margin-top: 0.8rem;
-  line-height: 1.3rem;
 }

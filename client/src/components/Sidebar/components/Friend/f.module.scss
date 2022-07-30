@@ -1,0 +1,69 @@
+@import '../../../../global_css/variables.scss';
+
+.friends_block {
+  display: flex;
+  align-items: center;
+
+  padding: 0.6rem 0.8rem 0.6rem 0.6rem;
+  position: relative;
+
+  background: #404040;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: $transition;
+
+  & p {
+    margin-left: 0.8rem;
+  }
+
+  &:hover {
+    background: #464646;
+  }
+}
+
+.friends_block {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 0.8rem;
+  line-height: 1.3rem;
+
+  &:hover > .friend_options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 1.8rem;
+    height: 1.8rem;
+
+    border-radius: 50%;
+    background: #464646;
+  }
+}
+
+.friends_block_left {
+  display: flex;
+  align-items: center;
+}
+
+.friend_options {
+  display: none;
+
+  & svg {
+    margin-left: 0.435px;
+  }
+
+  &:hover {
+    background: #636363 !important;
+  }
+}
+
+.options_dropdown {
+  position: absolute;
+  right: 0;
+  width: 10rem;
+  height: 4rem;
+
+  background: #696969;
+  list-style: none;
+}
