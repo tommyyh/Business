@@ -9,4 +9,5 @@ urlpatterns = [
   path('send-request/', views.send_request),
   path('my-requests/', views.get_requests),
   path('request-response/', views.request_response),
+  path('friends-list/', views.friends_list),
 ]

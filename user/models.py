@@ -17,3 +17,6 @@ class FriendRequest(models.Model):
 
   def __str__(self):
     return f'Sender: {self.sender}, Receiver: {self.receiver}'
+
+class Friendship(models.Model):
+  user = models.ManyToManyField(Account, related_name='user')

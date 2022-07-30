@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import AccountSerializer, FriendRequestSerializer
-from .models import Account, FriendRequest
+from .serializers import AccountSerializer, FriendRequestSerializer, FriendshipSerializer
+from .models import Account, FriendRequest, Friendship
 import bcrypt
 import jwt
 
@@ -151,11 +151,14 @@ def logout(request):
 @api_view(['POST'])
 def send_request(request): # Error handling for not found users
   username = request.data['username']
-  user = Account.objects.get(username=username)
   session_user = request.session['user']
   logged_user = Account.objects.get(id=session_user['id'])
+ 
+  if not Account.objects.filter(username=username).count():
+    return Response({ 'status': 400, 'msg': 'User does not exist' })
 
   if session_user['username'] != username:
+    user = Account.objects.get(username=username)
     FriendRequest.objects.create(sender=logged_user, receiver=user)
 
     return Response({ 'status': 200 })
@@ -177,13 +180,41 @@ def get_requests(request): # Handle error where they have no friends :(
 def request_response(request):
   action = request.data['action']
   username = request.data['username']
-  receiver = request.data['receiver']
+  receiver_username = request.data['receiver']
 
-  try:
+  try: # If clicked multiple
     # Update friend request status
-    friend_request = FriendRequest.objects.get(sender__username=username, receiver__username=receiver)
+    friend_request = FriendRequest.objects.get(sender__username=username, receiver__username=receiver_username)
     friend_request.delete()
 
-    return Response({ 'status': 200 })
+    if action == 'accept':
+      # Check if friendship already exists
+      if Friendship.objects.filter(user__username=username).filter(user__username=receiver_username).exists():
+        return Response({ 'status': 401 })
+
+      friendship = Friendship()
+      friendship.save()
+
+      # Add users to friendship relation
+      sender = Account.objects.get(username=username)
+      receiver = Account.objects.get(username=receiver_username)
+
+      friendship.user.add(sender)
+      friendship.user.add(receiver)
+
+      sender_account = Account.objects.get(username=username)
+      serializer = AccountSerializer(sender_account)
+
+      return Response({ 'status': 200, 'sender': serializer.data })
+    else:
+      return Response({ 'status': 201 })
   except:
     return Response({ 'status': 400 })
+
+@api_view(['GET'])
+def friends_list(request):
+  session_user = request.session['user']
+  user = Account.objects.get(id=session_user['id'])
+  serializer = FriendshipSerializer(user.user.all(), many=True)
+  
+  return Response({ 'status': 200, 'data': serializer.data })

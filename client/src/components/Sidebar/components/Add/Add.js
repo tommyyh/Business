@@ -5,15 +5,25 @@ import { post } from '../../../../lib/axios';
 const Add = ({ setAddOpen }) => {
   const [username, setUsername] = useState('mike123');
   const [msg, setMsg] = useState('');
+  const [processing, setProcessing] = useState(false);
 
   const submit = async () => {
+    setProcessing(true);
+    setMsg('');
+
     const res = await post('/user/send-request/', {
       username: username,
     });
 
-    if (res.data.status === 400) return setMsg(res.data.msg);
+    if (res.data.status === 400) {
+      setProcessing(false);
+      setMsg(res.data.msg);
+
+      return;
+    }
 
     setMsg('Friend request sent');
+    setProcessing(false);
   };
 
   return (
@@ -27,7 +37,9 @@ const Add = ({ setAddOpen }) => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
-        <button onClick={submit}>Add Friend</button>
+        <button onClick={submit} disabled={processing}>
+          {processing ? 'Processing' : 'Add Friend'}
+        </button>
         {msg && <p>{msg}</p>}
       </div>
     </div>
