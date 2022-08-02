@@ -21,6 +21,7 @@ import {
   login,
   logout,
   setUsername,
+  setProfilePic,
 } from './features/user/userSlice';
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
     useEffect(() => {
       (async () => {
         const res = await get('/user/authenticate/');
-        const { status, name, surname, dob, email, username } = res.data;
+        const { status, name, surname, dob, email, username, profile_pic } =
+          res.data;
 
         if (status === 401) {
           dispatch(logout());
@@ -41,6 +43,7 @@ function App() {
           dispatch(setUsername(undefined));
           dispatch(setDob(undefined));
           dispatch(setEmail(undefined));
+          dispatch(setProfilePic(undefined));
           setLoading(false);
 
           return;
@@ -52,6 +55,7 @@ function App() {
         dispatch(setUsername(username));
         dispatch(setDob(dob));
         dispatch(setEmail(email));
+        dispatch(setProfilePic(profile_pic));
         setLoading(false);
       })();
     }, [location]);

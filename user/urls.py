@@ -11,4 +11,6 @@ urlpatterns = [
   path('request-response/', views.request_response),
   path('friends-list/', views.friends_list),
   path('remove-friend/', views.remove_friend),
+  path('user-info/<str:username>/', views.user_info),
+  path('update/<str:username>/', views.update_profile),
 ]

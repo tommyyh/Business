@@ -98,7 +98,7 @@ export const CogIcon = ({ active }) => {
   );
 };
 
-export const UserIcon = ({ active }) => {
+export const UserIcon = ({ active, setProfileOpen, profilePic }) => {
   return (
     <div
       className={
@@ -106,8 +106,18 @@ export const UserIcon = ({ active }) => {
           ? `${css.sidebar_icon} ${css.sidebar_icon_active}`
           : css.sidebar_icon
       }
+      onClick={() => setProfileOpen(true)}
     >
-      <FaUser size={iconSize} style={{ marginRight: '-0.03rem' }} />
+      <img
+        src={profilePic}
+        alt='User profile'
+        style={{
+          width: '53.59px',
+          height: '53.59px',
+          borderRadius: '50%',
+          objectFit: 'cover',
+        }}
+      />
       <p className={css.icon_text}>Your Profile</p>
     </div>
   );

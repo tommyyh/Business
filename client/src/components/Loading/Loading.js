@@ -6,8 +6,6 @@ import Footer from '../Footer/Footer';
 const Loading = () => {
   return (
     <>
-      <Header />
-
       <div className={LoadingCSS.loading_cont}>
         <div className={LoadingCSS.loading}>
           <div className={LoadingCSS.loading_icon}>
@@ -15,8 +13,6 @@ const Loading = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 };

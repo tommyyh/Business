@@ -45,6 +45,7 @@ def register(request):
     'dob': request.data['dob'],
     'email': request.data['email'],
     'password': hashedPassword.decode("utf-8"),
+    'profile_pic': request.data['profilePic']
   })
   
   if serializer.is_valid():
@@ -82,6 +83,7 @@ def login(request):
       'surname': user.surname,
       'username': user.username,
       'email': user.email,
+      'profile_pic': user.profile_pic.url,
     }
 
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
@@ -95,6 +97,7 @@ def login(request):
       'username': user.username,
       'dob': user.dob,
       'email': user.email,
+      'profile_pic': user.profile_pic.url,
     })
     response.set_cookie('token', encoded_jwt, max_age=max_age, httponly=True)
 
@@ -124,6 +127,7 @@ def authenticate(request):
         'username': account.username,
         'dob': account.dob,
         'email': account.email,
+        'profile_pic': account.profile_pic.url,
       })
 
     except:
@@ -229,3 +233,73 @@ def remove_friend(request):
     friendship.delete()
 
   return Response({ 'status': 200 })
+
+@api_view(['GET'])
+def user_info(request, username):
+  user = Account.objects.get(username=username)
+  serializer = AccountSerializer(user)
+  user_data = {**serializer.data, 'profile_pic_name': user.profile_pic.name}
+
+  return Response({ 'status': 200, 'data': user_data })
+
+@api_view(['POST'])
+def update_profile(request, username): # NEED REFACTORING - TOO LONG 
+  user = Account.objects.get(username=username)
+  new_profile_pic = request.data['profileImg']
+  
+  # Update profile picture
+  if new_profile_pic == 'undefined':
+    pass
+  elif new_profile_pic.name == 'default_pic.png':
+    if user.profile_pic.name != 'media/profile/default_pic.png':
+      # Delete old picture -> set new
+      user.profile_pic.delete()
+      user.profile_pic = new_profile_pic
+  elif new_profile_pic:
+    if user.profile_pic.name != 'media/profile/default_pic.png':
+      user.profile_pic.delete()
+    user.profile_pic = new_profile_pic
+
+  raw_password = bytes(request.data['password'], encoding='utf-8')
+  hashedPassword = bcrypt.hashpw(raw_password, bcrypt.gensalt())
+
+  # Check if email is valid
+  if user.email != request.data['email'] and '@' not in request.data['email']:
+    return Response({ 'status': 400, 'msg': 'Invalid email' })
+
+  # Check if email is taken
+  if user.email != request.data['email'] and Account.objects.filter(email = request.data['email']):
+    return Response({ 'status': 400, 'msg': 'Email is already taken' })
+
+  # Check if username is taken
+  if user.username != request.data['username'] and Account.objects.filter(username = request.data['username']):
+    return Response({ 'status': 400, 'msg': 'Username is already taken' })
+
+  # Check if password is at least 6 letters
+  if request.data['password'] and not len(request.data['password']) > 5:
+    return Response({
+      'status': 400, 'msg': 'Password must be at least 6 characters long' 
+    })
+
+  # Check if passwords match
+  if request.data['password'] != request.data['confirmPassword']:
+    return Response({
+      'status': 400, 'msg': 'Passwords do not match' 
+    })
+
+  user.name = request.data['name']
+  user.surname = request.data['surname']
+  user.username = request.data['username']
+  user.dob = request.data['dob']
+  user.email = request.data['email']
+  user.lives_in = request.data['livesIn']
+  user.password = hashedPassword.decode("utf-8")
+
+  # Update profile
+  user.save()
+
+  # Send back new profile info
+  updated_user = Account.objects.get(username=username)
+  serializer = AccountSerializer(updated_user)
+
+  return Response({ 'status': 200, 'data': serializer.data })

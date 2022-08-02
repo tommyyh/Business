@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import css from './m.module.scss';
 import { post } from '../../../../lib/axios';
+import defaultPic from '../../../../assets/img/user.png';
 
 const Main = () => {
   const [error, setError] = useState('');
@@ -18,15 +19,35 @@ const Main = () => {
   const navigate = useNavigate();
 
   const submit = async () => {
-    const res = await post('/user/register/', {
-      name: values.name,
-      surname: values.surname,
-      username: values.username,
-      dob: values.dob,
-      email: values.email,
-      password: values.password,
-      confirm: values.confirm,
-    });
+    // Convert Base64 to file -> send to server as default pic after registering
+    const dataURLtoFile = (dataurl, filename) => {
+      let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+
+      return new File([u8arr], filename, { type: mime });
+    };
+
+    const file = dataURLtoFile(defaultPic, 'default_pic.png');
+
+    const data = new FormData();
+
+    data.append('profilePic', file);
+    data.append('name', values.name);
+    data.append('surname', values.surname);
+    data.append('username', values.username);
+    data.append('dob', values.dob);
+    data.append('email', values.email);
+    data.append('password', values.password);
+    data.append('confirm', values.confirm);
+
+    const res = await post('/user/register/', data);
 
     const { status, msg } = res.data;
 

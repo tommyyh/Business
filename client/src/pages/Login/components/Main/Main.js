@@ -10,6 +10,7 @@ import {
   setSurname,
   login,
   setUsername,
+  setProfilePic,
 } from '../../../../features/user/userSlice';
 
 const Main = () => {
@@ -28,7 +29,8 @@ const Main = () => {
       password: values.password,
     });
 
-    const { status, msg, name, surname, dob, email, username } = res.data;
+    const { status, msg, name, surname, dob, email, username, profile_pic } =
+      res.data;
 
     if (status === 400) {
       setError(msg);
@@ -39,6 +41,7 @@ const Main = () => {
       dispatch(setUsername(username));
       dispatch(setEmail(email));
       dispatch(setDob(dob));
+      dispatch(setProfilePic(profile_pic));
       dispatch(login());
 
       navigate('/app');

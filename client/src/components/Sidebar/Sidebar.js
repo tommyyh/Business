@@ -5,10 +5,12 @@ import Icons from './components/Icons/Icons';
 import FriendsList from './components/FriendsList/FriendsList';
 import { friendsOpen as friendsOpenFn } from '../../features/user/userSlice';
 import Add from './components/Add/Add';
+import Profile from './components/Profile/Profile';
 
 const Sidebar = () => {
   const [active, setActive] = useState('');
   const [addOpen, setAddOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const friendsOpen = useSelector((state) => state.user.value).friendsOpen
     .payload;
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const Sidebar = () => {
   return (
     <>
       {addOpen && <Add setAddOpen={() => setAddOpen(false)} />}
+      {profileOpen && <Profile closeProfile={() => setProfileOpen(false)} />}
       <FriendsList
         friendsOpen={friendsOpen}
         setAddOpen={() => setAddOpen(true)}
@@ -33,6 +36,7 @@ const Sidebar = () => {
           active={active}
           friendsOpen={friendsOpen}
           setFriendsOpen={() => dispatch(friendsOpenFn(!friendsOpen))}
+          setProfileOpen={setProfileOpen}
         />
       </div>
     </>

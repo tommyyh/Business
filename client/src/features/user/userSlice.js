@@ -9,6 +9,7 @@ export const userSlice = createSlice({
       username: '',
       email: '',
       dob: '',
+      profilePic: '',
       loggedIn: false,
       friendsOpen: false,
     },
@@ -28,6 +29,9 @@ export const userSlice = createSlice({
     },
     setDob: (state, data) => {
       state.value.dob = data;
+    },
+    setProfilePic: (state, data) => {
+      state.value.profilePic = data;
     },
     login: (state) => {
       state.value.loggedIn = true;
@@ -50,6 +54,7 @@ export const {
   login,
   logout,
   friendsOpen,
+  setProfilePic,
 } = userSlice.actions;
 
 export default userSlice.reducer;

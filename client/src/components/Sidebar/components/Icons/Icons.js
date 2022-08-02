@@ -8,8 +8,11 @@ import {
   MicIcon,
   UserIcon,
 } from '../../components/Icon/Icon';
+import { useSelector } from 'react-redux';
 
-const Icons = ({ active, setFriendsOpen, friendsOpen }) => {
+const Icons = ({ active, setFriendsOpen, friendsOpen, setProfileOpen }) => {
+  const user = useSelector((state) => state.user.value);
+
   return (
     <>
       <div className={css.sidebar_up}>
@@ -23,7 +26,11 @@ const Icons = ({ active, setFriendsOpen, friendsOpen }) => {
         />
       </div>
       <div className={css.sidebar_bot}>
-        <UserIcon active={active} />
+        <UserIcon
+          active={active}
+          setProfileOpen={setProfileOpen}
+          profilePic={user.profilePic.payload}
+        />
         <CogIcon active={active} />
       </div>
     </>
