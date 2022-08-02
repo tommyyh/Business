@@ -73,6 +73,8 @@
 .Quote img {
   position: absolute;
   z-index: -5;
+  height: 720px;
+  object-fit: cover;
 }
 
 .quote_header {
@@ -220,6 +222,10 @@
         background: $hover;
       }
     }
+  }
+
+  .Quote {
+    display: none;
   }
 }
 
