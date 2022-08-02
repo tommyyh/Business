@@ -73,6 +73,14 @@
 
 @media screen and (max-width: 700px) {
   .footer {
-    width: 100%;
+    width: 90%;
+    padding: 0px;
+    padding-top: 4%;
+  }
+
+  .footer_cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
