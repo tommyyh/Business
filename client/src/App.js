@@ -13,6 +13,8 @@ import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
 import AppHome from './app/Home/index';
 import Meet from './app/Meet/Meet';
+import Direct from './app/Direct/Direct';
+import Chat from './app/Chat/Chat';
 import {
   setDob,
   setEmail,
@@ -107,6 +109,16 @@ function App() {
           exact
           path='/app/meet'
           element={<ModifiedRoute Component={Meet} type='private' />}
+        />
+        <Route
+          exact
+          path='/app/direct'
+          element={<ModifiedRoute Component={Direct} type='private' />}
+        />
+        <Route
+          exact
+          path='/app/direct/:id'
+          element={<ModifiedRoute Component={Chat} type='private' />}
         />
       </Routes>
     </Router>

@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import css from './f.module.scss';
 import { post } from '../../../../lib/axios';
 import { FaEllipsisH } from 'react-icons/fa';
-import UserImg from '../../../../assets/img/user.png';
 
 const Friend = ({ friend, setFriends, friends }) => {
   const [optionsOpen, setOptionsOpen] = useState(false);
@@ -31,7 +30,11 @@ const Friend = ({ friend, setFriends, friends }) => {
   return (
     <div className={css.friends_block} key={friend.id}>
       <div className={css.friends_block_left}>
-        <img src={UserImg} alt='user profile' className={css.user_profile} />
+        <img
+          src={friend.profile_pic}
+          alt='user profile'
+          className={css.user_profile}
+        />
         <p>{`${friend.name} ${friend.surname}`}</p>
       </div>
       <div className={css.friend_options} onClick={() => setOptionsOpen(true)}>

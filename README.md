@@ -16,6 +16,9 @@ Environment variables
   - DB_PORT = mysql port (usually 3306)
   - DB_USER = mysql database user
   - DB_PASS = mysql database password
+  - AWS_ACCESS_KEY_ID
+  - AWS_SECRET_ACCESS_KEY
+  - AWS_STORAGE_BUCKET_NAME
 
 Start servers
 

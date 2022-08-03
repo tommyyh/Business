@@ -48,9 +48,9 @@ export const CompassIcon = ({ active }) => {
 export const CommentsIcon = ({ active }) => {
   return (
     <Link
-      to='/app'
+      to='/app/direct'
       className={
-        active === 'fefef'
+        active === 'direct'
           ? `${css.sidebar_icon} ${css.sidebar_icon_active}`
           : css.sidebar_icon
       }
