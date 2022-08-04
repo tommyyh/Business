@@ -14,8 +14,9 @@ class Message(models.Model):
   message = models.TextField()
   user_message = models.ForeignKey(
       Account, on_delete=models.PROTECT, related_name='user_message')
-  chat = models.ForeignKey(Chat,  on_delete=models.PROTECT,
+  chat = models.ForeignKey(Chat, on_delete=models.PROTECT,
                            related_name='chat', blank=True)
+  sentAt = models.DateTimeField(null=True)
 
   def __str__(self):
-    return f'{self.user}: {self.message}'
+    return f'{self.message}'
