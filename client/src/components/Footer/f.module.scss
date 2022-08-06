@@ -12,9 +12,10 @@
 
 .footer {
   display: flex;
+  justify-content: space-around;
   position: relative;
 
-  padding: 4% 0 0 3.85rem;
+  padding-top: 4%;
   width: 1280px;
   height: 470px;
 }
