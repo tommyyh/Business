@@ -10,6 +10,7 @@ import Profile from './components/Profile/Profile';
 const Sidebar = () => {
   const [active, setActive] = useState('');
   const [addOpen, setAddOpen] = useState(false);
+  const [socket, setSocket] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const friendsOpen = useSelector((state) => state.user.value).friendsOpen
     .payload;
@@ -25,11 +26,13 @@ const Sidebar = () => {
 
   return (
     <>
-      {addOpen && <Add setAddOpen={() => setAddOpen(false)} />}
+      {addOpen && <Add setAddOpen={() => setAddOpen(false)} socket={socket} />}
       {profileOpen && <Profile closeProfile={() => setProfileOpen(false)} />}
       <FriendsList
         friendsOpen={friendsOpen}
         setAddOpen={() => setAddOpen(true)}
+        setSocket={setSocket}
+        socket={socket}
       />
       <div className={css.sidebar}>
         <Icons

@@ -27,8 +27,38 @@ const Profile = ({ closeProfile }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const fetchUserInfo = async (username) => {
+      const res = await get(`/user/user-info/${username}/`);
+      const {
+        name,
+        surname,
+        username: fetchedUsername,
+        email,
+        dob,
+        profile_pic,
+        lives_in,
+      } = res.data.data;
+
+      setUserInfo({
+        profilePic: '',
+        name,
+        surname,
+        username: fetchedUsername,
+        email,
+        dob,
+        password: '',
+        confirmPassword: '',
+        livesIn: lives_in,
+      });
+
+      if (profile_pic) {
+        setPreview(profile_pic);
+      }
+
+      setLoading(false);
+    };
+
     fetchUserInfo(user.username.payload);
-    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -93,35 +123,6 @@ const Profile = ({ closeProfile }) => {
     }
   };
 
-  const fetchUserInfo = async (username) => {
-    const res = await get(`/user/user-info/${username}/`);
-    const {
-      name,
-      surname,
-      username: fetchedUsername,
-      email,
-      dob,
-      profile_pic,
-      lives_in,
-    } = res.data.data;
-
-    setUserInfo({
-      profilePic: '',
-      name,
-      surname,
-      username: fetchedUsername,
-      email,
-      dob,
-      password: '',
-      confirmPassword: '',
-      livesIn: lives_in,
-    });
-
-    if (profile_pic) {
-      setPreview(profile_pic);
-    }
-  };
-
   const deleteProfilePic = () => {
     // Convert Base64 to file -> send to server as default pic after registering
     const dataURLtoFile = (dataurl, filename) => {
@@ -167,6 +168,15 @@ const Profile = ({ closeProfile }) => {
       return;
     }
   };
+
+  if (loading)
+    return (
+      <div className={css.profile}>
+        <div className={css.profile_inner}>
+          <Loading />
+        </div>
+      </div>
+    );
 
   return (
     <div className={css.profile}>

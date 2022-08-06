@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { get } from '../../../../lib/axios';
 import Loading from '../../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
@@ -12,13 +12,14 @@ const Main = () => {
   const [messages, setMessages] = useState([]);
   const { id } = useParams();
   const logged_user = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getChat = async () => {
       const res = await get(`/chat/get-chat/${id}/`);
       const { status, data } = res.data;
 
-      if (status !== 200) return; // ERROR
+      if (status === 404) return navigate('/app/direct');
 
       setChat({
         ...data,
@@ -27,14 +28,14 @@ const Main = () => {
         ),
       });
       setMessages(data.chat);
+
+      const socket = new WebSocket(`ws://localhost:5000/ws/chat/${id}/`);
+
+      setSocket(socket);
+      setLoading(false);
     };
 
-    const socket = new WebSocket(`ws://localhost:5000/ws/${id}/`);
-
-    setSocket(socket);
-
     getChat();
-    setLoading(false);
   }, []);
 
   if (loading) return <Loading />;

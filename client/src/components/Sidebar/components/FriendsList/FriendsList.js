@@ -4,14 +4,20 @@ import css from './f.module.scss';
 import { get, post } from '../../../../lib/axios';
 import Friend from '../Friend/Friend';
 import { getFriendsList } from '../../../../helpers/helperFunctions';
+import { v4 } from 'uuid';
 
-const FriendsList = ({ friendsOpen, setAddOpen }) => {
+const FriendsList = ({ friendsOpen, setAddOpen, setSocket, socket }) => {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
+    // Join all users group to get requests and response
+    const socket = new WebSocket(`ws://localhost:5000/ws/friend-actions/`);
+
+    setSocket(socket);
+
     getMyRequests();
     myFriends();
     setLoading(false);
@@ -33,30 +39,40 @@ const FriendsList = ({ friendsOpen, setAddOpen }) => {
   };
 
   const requestResponse = async (action, username, receiver) => {
-    const res = await post('/user/request-response/', {
-      action,
-      username,
-      receiver,
-    });
-    const { status, sender } = res.data;
-
-    if (status === 400 || status === 401) return; // ERROR
-
-    if (status === 200) {
-      // Create a chat between these users when accepted
-      await post('/chat/create-chat/', {
-        username,
-      });
-
-      setFriends([...friends, sender]);
+    if (socket.readyState === 1) {
+      socket.send(
+        JSON.stringify({
+          action: 'response',
+          userAction: action,
+          sender: username,
+          receiver,
+        })
+      );
     }
-
-    setFriendRequests((requests) =>
-      requests.filter((x) => x.sender.username !== username)
-    );
   };
 
   if (loading) return <h1>Loading</h1>;
+
+  socket.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+
+    if (data.action === 'send_request') {
+      if (data.stored_request.receiver.username === user.username.payload) {
+        setFriendRequests([...friendRequests, data.stored_request]);
+      }
+    } else if (data.action === 'response') {
+      setFriends([
+        ...friends,
+        data.stored_friendship.user.filter(
+          (x) => x.username !== user.username.payload
+        )[0],
+      ]);
+
+      setFriendRequests((requests) =>
+        requests.filter((x) => x.sender.username !== data.sender)
+      );
+    }
+  };
 
   return (
     <div
@@ -72,7 +88,7 @@ const FriendsList = ({ friendsOpen, setAddOpen }) => {
 
       {friendRequests &&
         friendRequests.map((request) => (
-          <div key={request.id}>
+          <div key={v4()}>
             <p>{request.sender.email}</p>
             <button
               onClick={() =>

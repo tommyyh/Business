@@ -9,7 +9,9 @@ application = ProtocolTypeRouter({
         AuthMiddlewareStack(
             URLRouter(
                 [
-                    path('ws/<int:room_id>/', consumers.ChatConsumer.as_asgi()),
+                    path('ws/chat/<int:room_id>/',
+                         consumers.ChatConsumer.as_asgi()),
+                    path('ws/friend-actions/', consumers.UserConsumer.as_asgi()),
                 ]
             )
         )

@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './a.module.scss';
 import { post } from '../../../../lib/axios';
+import Loading from '../../../../components/Loading/Loading';
+import { useSelector } from 'react-redux';
 
-const Add = ({ setAddOpen }) => {
+const Add = ({ setAddOpen, socket }) => {
   const [username, setUsername] = useState('mike123');
+  const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState('');
   const [processing, setProcessing] = useState(false);
+  const user = useSelector((state) => state.user.value);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   const submit = async () => {
+    if (loading) return setMsg('Please wait');
+
     setProcessing(true);
-    setMsg('');
 
-    const res = await post('/user/send-request/', {
-      username: username,
-    });
-
-    if (res.data.status === 400) {
-      setProcessing(false);
-      setMsg(res.data.msg);
-
-      return;
+    if (socket.readyState === 1) {
+      socket.send(
+        JSON.stringify({
+          sender: user.username.payload,
+          receiver: username,
+          action: 'send-request',
+        })
+      );
     }
 
-    setMsg('Friend request sent');
     setProcessing(false);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className={css.add}>

@@ -187,43 +187,6 @@ def get_requests(request):  # Handle error where they have no friends :(
     return Response({'status': 400, 'msg': 'Unable to show friend requests'})
 
 
-@api_view(['POST'])
-def request_response(request):
-  action = request.data['action']
-  username = request.data['username']
-  receiver_username = request.data['receiver']
-
-  try:  # If clicked multiple
-    # Update friend request status
-    friend_request = FriendRequest.objects.get(
-        sender__username=username, receiver__username=receiver_username)
-    friend_request.delete()
-
-    if action == 'accept':
-      # Check if friendship already exists
-      if Friendship.objects.filter(user__username=username).filter(user__username=receiver_username).exists():
-        return Response({'status': 401})
-
-      friendship = Friendship()
-      friendship.save()
-
-      # Add users to friendship relation
-      sender = Account.objects.get(username=username)
-      receiver = Account.objects.get(username=receiver_username)
-
-      friendship.user.add(sender)
-      friendship.user.add(receiver)
-
-      sender_account = Account.objects.get(username=username)
-      serializer = AccountSerializer(sender_account)
-
-      return Response({'status': 200, 'sender': serializer.data})
-    else:
-      return Response({'status': 201})
-  except:
-    return Response({'status': 400})
-
-
 @api_view(['GET'])
 def friends_list(request):
   session_user = request.session['user']
