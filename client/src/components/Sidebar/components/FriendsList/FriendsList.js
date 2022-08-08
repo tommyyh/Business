@@ -6,7 +6,13 @@ import Friend from '../Friend/Friend';
 import { getFriendsList } from '../../../../helpers/helperFunctions';
 import { v4 } from 'uuid';
 
-const FriendsList = ({ friendsOpen, setAddOpen, setSocket, socket }) => {
+const FriendsList = ({
+  friendsOpen,
+  setAddOpen,
+  setSocket,
+  socket,
+  setMsg,
+}) => {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,7 +62,13 @@ const FriendsList = ({ friendsOpen, setAddOpen, setSocket, socket }) => {
   socket.onmessage = (e) => {
     const data = JSON.parse(e.data);
 
-    if (data.action === 'send_request') {
+    if (data.action === 'send_request_add_yourself') {
+      setMsg('Cannot add your own self');
+    } else if (data.action === 'send_request_user_exists') {
+      setMsg('User does not exists');
+    } else if (data.action === 'send_request_exists') {
+      setMsg('Already friends with this user');
+    } else if (data.action === 'send_request') {
       if (data.stored_request.receiver.username === user.username.payload) {
         setFriendRequests([...friendRequests, data.stored_request]);
       }
@@ -69,7 +81,15 @@ const FriendsList = ({ friendsOpen, setAddOpen, setSocket, socket }) => {
       ]);
 
       setFriendRequests((requests) =>
-        requests.filter((x) => x.sender.username !== data.sender)
+        requests.filter(
+          (x) =>
+            x.sender.username === data.sender &&
+            x.receiver.username === data.receiver
+        )
+      );
+    } else if (data.action === 'reject') {
+      setFriendRequests((requests) =>
+        requests.filter((x) => x.receiver.username === data.sender)
       );
     }
   };
@@ -91,24 +111,26 @@ const FriendsList = ({ friendsOpen, setAddOpen, setSocket, socket }) => {
           <div key={v4()}>
             <p>{request.sender.email}</p>
             <button
-              onClick={() =>
+              onClick={() => {
                 requestResponse(
                   'accept',
                   request.sender.username,
                   request.receiver.username
-                )
-              }
+                );
+                setMsg('');
+              }}
             >
               Accept
             </button>
             <button
-              onClick={() =>
+              onClick={() => {
                 requestResponse(
                   'reject',
                   request.sender.username,
                   request.receiver.username
-                )
-              }
+                );
+                setMsg('');
+              }}
             >
               Reject
             </button>

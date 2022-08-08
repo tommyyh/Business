@@ -9,6 +9,7 @@ import Profile from './components/Profile/Profile';
 
 const Sidebar = () => {
   const [active, setActive] = useState('');
+  const [addMsg, setAddMsg] = useState('');
   const [addOpen, setAddOpen] = useState(false);
   const [socket, setSocket] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -26,13 +27,21 @@ const Sidebar = () => {
 
   return (
     <>
-      {addOpen && <Add setAddOpen={() => setAddOpen(false)} socket={socket} />}
+      {addOpen && (
+        <Add
+          setAddOpen={() => setAddOpen(false)}
+          socket={socket}
+          msg={addMsg}
+          setMsg={setAddMsg}
+        />
+      )}
       {profileOpen && <Profile closeProfile={() => setProfileOpen(false)} />}
       <FriendsList
         friendsOpen={friendsOpen}
         setAddOpen={() => setAddOpen(true)}
         setSocket={setSocket}
         socket={socket}
+        setMsg={setAddMsg}
       />
       <div className={css.sidebar}>
         <Icons

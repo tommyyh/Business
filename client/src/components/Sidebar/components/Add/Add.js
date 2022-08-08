@@ -4,10 +4,9 @@ import { post } from '../../../../lib/axios';
 import Loading from '../../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
 
-const Add = ({ setAddOpen, socket }) => {
-  const [username, setUsername] = useState('mike123');
+const Add = ({ setAddOpen, socket, msg, setMsg }) => {
+  const [username, setUsername] = useState('shaq420');
   const [loading, setLoading] = useState(true);
-  const [msg, setMsg] = useState('');
   const [processing, setProcessing] = useState(false);
   const user = useSelector((state) => state.user.value);
 

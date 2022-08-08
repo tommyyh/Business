@@ -121,7 +121,15 @@ class UserConsumer(AsyncWebsocketConsumer):
       if user_action == 'accept':
         await self.channel_layer.group_send(
             self.group_name, {
-                'type': 'requestRes',
+                'type': 'response_accept',
+                'sender': res_sender,
+                'receiver': res_receiver,
+            }
+        )
+      else:
+        await self.channel_layer.group_send(
+            self.group_name, {
+                'type': 'response_reject',
                 'sender': res_sender,
                 'receiver': res_receiver,
             }
@@ -130,6 +138,23 @@ class UserConsumer(AsyncWebsocketConsumer):
   async def send_request(self, event):
     sender = event['sender']
     receiver = event['receiver']
+    if_exists = await self.friend_request_exists(sender, receiver)
+    receiver_exists = await self.receiver_exists(receiver)
+
+    if sender == receiver:
+      return await self.send(text_data=json.dumps({
+          'action': 'send_request_add_yourself'
+      }))
+
+    if not receiver_exists:
+      return await self.send(text_data=json.dumps({
+          'action': 'send_request_user_exists'
+      }))
+
+    if if_exists:
+      return await self.send(text_data=json.dumps({
+          'action': 'send_request_exists'
+      }))
 
     stored_request = await self.get_request(sender, receiver)
 
@@ -139,7 +164,7 @@ class UserConsumer(AsyncWebsocketConsumer):
         'action': 'send_request'
     }))
 
-  async def requestRes(self, event):
+  async def response_accept(self, event):
     sender = event['sender']
     receiver = event['receiver']
 
@@ -150,6 +175,19 @@ class UserConsumer(AsyncWebsocketConsumer):
         'stored_friendship': stored_friendship,
         'action': 'response',
         'username': sender
+    }))
+
+  async def response_reject(self, event):
+    sender = event['sender']
+    receiver = event['receiver']
+
+    await self.reject_request(sender, receiver)
+
+    # Send msg to WebSockets
+    await self.send(text_data=json.dumps({
+        'action': 'reject',
+        'sender': sender,
+        'receiver': receiver,
     }))
 
   @sync_to_async
@@ -222,3 +260,25 @@ class UserConsumer(AsyncWebsocketConsumer):
     chat.save()
 
     return serializer.data
+
+  @sync_to_async
+  def friend_request_exists(self, sender, receiver):
+    friend_requests = FriendRequest.objects.filter(
+        receiver__username=receiver, sender__username=sender).exists()
+
+    return friend_requests
+
+  @sync_to_async
+  def receiver_exists(self, receiver):
+    try:
+      Account.objects.get(username=receiver)
+
+      return True
+    except:
+      return False
+
+  @sync_to_async
+  def reject_request(self, sender, receiver):
+    friend_request = FriendRequest.objects.filter(
+        sender__username=sender, receiver__username=receiver)
+    friend_request.delete()
