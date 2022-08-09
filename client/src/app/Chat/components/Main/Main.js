@@ -4,6 +4,7 @@ import { get } from '../../../../lib/axios';
 import Loading from '../../../../components/Loading/Loading';
 import { useSelector } from 'react-redux';
 import Layout from '../Layout/Layout';
+import { v4 } from 'uuid';
 
 const Main = () => {
   const [chat, setChat] = useState();
@@ -52,6 +53,7 @@ const Main = () => {
       <Layout socket={socket} user={logged_user} id={id} />
       {messages.map((msg) => (
         <Message
+          key={v4()}
           profilePic={msg.user_message.profile_pic}
           fullName={`${msg.user_message.name} ${msg.user_message.surname}`}
           msg={msg.message}

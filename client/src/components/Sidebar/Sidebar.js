@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import css from './s.module.scss';
 import Icons from './components/Icons/Icons';
 import FriendsList from './components/FriendsList/FriendsList';
-import { friendsOpen as friendsOpenFn } from '../../features/user/userSlice';
+import Nodes from './components/Nodes/Nodes';
+import {
+  friendsOpen as friendsOpenFn,
+  nodesOpen as nodesOpenFn,
+} from '../../features/user/userSlice';
 import Add from './components/Add/Add';
 import Profile from './components/Profile/Profile';
 
@@ -15,6 +19,7 @@ const Sidebar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const friendsOpen = useSelector((state) => state.user.value).friendsOpen
     .payload;
+  const nodesOpen = useSelector((state) => state.user.value).nodesOpen.payload;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,11 +48,20 @@ const Sidebar = () => {
         socket={socket}
         setMsg={setAddMsg}
       />
+      <Nodes nodesOpen={nodesOpen} />
       <div className={css.sidebar}>
         <Icons
           active={active}
           friendsOpen={friendsOpen}
-          setFriendsOpen={() => dispatch(friendsOpenFn(!friendsOpen))}
+          nodesOpen={nodesOpen}
+          setFriendsOpen={() => {
+            dispatch(nodesOpenFn(false));
+            dispatch(friendsOpenFn(!friendsOpen));
+          }}
+          setNodesOpen={() => {
+            dispatch(friendsOpenFn(false));
+            dispatch(nodesOpenFn(!nodesOpen));
+          }}
           setProfileOpen={setProfileOpen}
         />
       </div>

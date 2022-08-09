@@ -7,10 +7,18 @@ import {
   FriendsIcon,
   MicIcon,
   UserIcon,
+  NodeIcon,
 } from '../../components/Icon/Icon';
 import { useSelector } from 'react-redux';
 
-const Icons = ({ active, setFriendsOpen, friendsOpen, setProfileOpen }) => {
+const Icons = ({
+  active,
+  setFriendsOpen,
+  friendsOpen,
+  setProfileOpen,
+  setNodesOpen,
+  nodesOpen,
+}) => {
   const user = useSelector((state) => state.user.value);
 
   return (
@@ -19,6 +27,11 @@ const Icons = ({ active, setFriendsOpen, friendsOpen, setProfileOpen }) => {
         <MicIcon active={active} />
         <CompassIcon active={active} />
         <CommentsIcon active={active} />
+        <NodeIcon
+          active={active}
+          setNodesOpen={setNodesOpen}
+          nodesOpen={nodesOpen}
+        />
         <FriendsIcon
           active={active}
           setFriendsOpen={setFriendsOpen}

@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './i.module.scss';
 import { Link } from 'react-router-dom';
-// import { TipsSvg } from '../../../../utils/Svg';
 import {
   FaMicrophone,
   FaCompass,
@@ -10,6 +9,8 @@ import {
   FaCog,
   FaUser,
 } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNodes } from '@fortawesome/free-solid-svg-icons';
 
 const iconSize = 20;
 
@@ -78,6 +79,27 @@ export const FriendsIcon = ({ friendsOpen, setFriendsOpen }) => {
         color={friendsOpen ? '#262626' : '#fff'}
       />
       <p className={css.icon_text}>Friends List</p>
+    </Link>
+  );
+};
+
+export const NodeIcon = ({ nodesOpen, setNodesOpen }) => {
+  return (
+    <Link
+      to=''
+      className={
+        nodesOpen
+          ? `${css.sidebar_icon} ${css.sidebar_icon_nodes}`
+          : css.sidebar_icon
+      }
+      onClick={setNodesOpen}
+    >
+      <FontAwesomeIcon
+        icon={faCircleNodes}
+        size='lg'
+        color={nodesOpen ? '#262626' : '#fff'}
+      />
+      <p className={css.icon_text}>Your Nodes</p>
     </Link>
   );
 };
