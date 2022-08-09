@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'storages',
     'channels',
+    'node',
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'company.wsgi.application'
 
-ASGI_APPLICATION = 'chat.routing.application'
+ASGI_APPLICATION = 'company.routing.application'
 
 CHANNEL_LAYERS = {
     "default": {
