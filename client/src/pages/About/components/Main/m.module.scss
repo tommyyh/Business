@@ -6,6 +6,7 @@
   position: relative;
 
   width: 100%;
+  margin-top: 30px;
 }
 
 .main {
@@ -62,3 +63,175 @@
     }
   }
 }
+
+// QUOTE SECTION
+
+.Quote {
+  height: 720px;
+}
+
+.Quote img {
+  position: absolute;
+  z-index: -5;
+  height: 720px;
+  object-fit: cover;
+}
+
+.quote_header {
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 164%;
+  padding-top: 200px;
+  margin-left: 104px;
+  color: #FFFFFF;
+}
+
+.quote_par {
+  width: 80%;
+  
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 164%;
+  /* or 20px */
+  
+  
+  color: #FFFFFF;
+}
+
+.quote_icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+
+  background: #C4C4C4;  
+}
+
+.quote_identity {
+  h4 {
+    // font-weight: 500;
+    font-size: 12px;
+    line-height: 164%;
+    /* identical to box height, or 20px */
+
+    color: #FFFFFF;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 164%;
+    /* identical to box height, or 20px */
+
+
+    color: #FFFFFF;
+  }
+}
+
+.quote_lower {
+  margin-left: 180px;
+  margin-top: 100px;
+}
+
+.quote_identity_cont {
+  width: 30%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .main_right {
+    padding-left: 40px;
+  }
+
+  .main_right {
+    & h1 {
+      width: 100%;
+      font-size: 1.2rem;
+    }
+
+    & p {
+      font-size: 1.05rem;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  
+    width: 100%;
+    height: 616px;
+    padding: 4.8rem 4rem 0rem 4rem;
+  
+    & img {
+      width: 14rem;
+    }
+  }
+
+  .main_right {
+    width: 85%;
+  
+    & h1 {
+      font-size: 1.2rem;
+      text-align: center;
+      // margin-right: 20%;
+      margin-top: 20px;
+      width: 100%;
+    }
+  
+    & p {
+      font-size: 1.05rem;
+  
+      margin: 1.2rem 32% 0 0;
+  
+      color: $text-color;
+      width: 100%;
+      text-align: center;
+    }
+  
+    & a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+  
+      font-size: 1.2rem;
+      width: 12rem;
+      height: 3.6rem;
+      margin: 2rem 0 0 0;
+  
+      background: $accent-color;
+      border: none;
+      color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: ease 250ms;
+      text-decoration: none;
+  
+      &:hover {
+        background: $hover;
+      }
+    }
+  }
+
+  .Quote {
+    display: none;
+  }
+}
+
+// @media screen and (min-width: 1250px) {
+//   .Quote img{
+//     // width: 100%;
+//     // height: 500px;
+//   }
+// }

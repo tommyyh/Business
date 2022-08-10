@@ -6,26 +6,24 @@
   position: relative;
 
   width: 100%;
+  overflow-x: hidden;
+  // background-color:#43AC87;
+  background: linear-gradient(90deg, white 50%, #43AC87 50%);
 }
 
 .main {
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
 
   width: 1280px;
-  height: 616px;
-  padding: 0 4rem;
+  // height: 616px;
+  // padding: 0 4rem;
 
   & h1 {
     font-size: 2.7rem;
-  }
-
-  & p {
-    font-size: 1.05rem;
-
-    color: $text-color;
   }
 
   & a {
@@ -51,6 +49,91 @@
       width: 21.2rem;
     }
   }
+}
+
+input {
+  width: 22rem;
+  height: 45px;
+  
+  border: 2px solid #B1B1B1;
+  box-sizing: border-box;
+  border-radius: 5px;
+
+  padding-left: 1rem;
+  font-weight: 400;
+  font-size: 16px;
+
+  position: relative;
+  top: 20px;
+  
+  
+  color: #5A5A57;
+}
+
+.left_section p {
+  width: 22rem;
+  margin-top: 5px;
+  font-size: 1.05rem;
+  color: $text-color;
+}
+
+label {
+  font-weight: 400;
+  font-size: 18px;
+  margin-left: 1rem;
+  padding-right: 10px;
+  padding-left: 10px;
+
+  // margin-top: -1px;
+
+  background-color: white;
+  position: absolute;
+  z-index: 2;
+
+  color: #282824;
+}
+
+.form {
+  margin-top: 25px;
+}
+
+.inputCont {
+  height: 64px;
+
+  margin-top: 21px;
+} 
+
+.form_img {
+  width: 25px;
+  height: 25px;
+
+  position: absolute;
+}
+
+.form_btn {
+  width: 22rem;
+  height: 45px;
+  margin-top: 30px;
+
+  background: #43AC87;
+  border: none;
+  border-radius: 5px;
+
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  margin-top: 16px;
+}
+
+.left_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .error,
@@ -115,4 +198,191 @@
 
 .error_closed {
   top: -5%;
+}
+
+.whole_section {
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+
+  width: 100%;
+  height: 695px;
+  // margin-top: 25px;
+  padding: 4.8rem 0rem 0 4rem;
+
+  overflow-y: hidden;
+}
+
+// QUOTE SECTION
+
+.Quote {
+  height: 620px;  
+}
+
+.Quote img {
+  position: absolute;
+  z-index: 5;
+}
+
+.quote_header {
+  position: relative;
+  z-index: 10;
+
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 164%;
+  padding-top: 200px;
+  margin-left: 104px;
+  color: #FFFFFF;
+}
+
+.quote_par {
+  position: relative;
+  z-index: 10;
+  width: 80%;
+  
+  font-style: italic;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 164%;
+  /* or 20px */
+  
+  
+  color: #FFFFFF;
+}
+
+.quote_icon {
+  position: relative;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+
+  background: #C4C4C4;  
+}
+
+.quote_identity {
+  h4 {
+    // font-weight: 500;
+    font-size: 12px;
+    line-height: 164%;
+    /* identical to box height, or 20px */
+
+    color: #FFFFFF;
+    position: relative;
+    z-index: 10;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 164%;
+    /* identical to box height, or 20px */
+
+
+    color: #FFFFFF;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+.quote_lower {
+  margin-left: 180px;
+  margin-top: 100px;
+  position: relative;
+  z-index: 10;
+}
+
+.quote_identity_cont {
+  width: 30%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+// FORM 2 TOGGLE
+
+.form2 {
+  display: none;
+}
+
+// PAGINATION
+
+.paginations {
+  display: flex;
+  justify-content: space-around;
+  width: 11rem;
+
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  margin-top: 30px;
+}
+
+.pagination {
+  width: 40px;
+  height: 40px; // Switching to rems do nothing here
+  border: none;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 164%;
+  /* or 34px */
+
+  border: 2px solid #43AC87;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.active_pag {
+  background: #43AC87;
+  border-radius: 10px;
+  color: #FFFFFF;
+}
+
+
+@media screen and (max-width: 1040px){
+  .Quote {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .whole_section {
+    display: flex;
+    justify-content: space-between;
+  
+    position: relative;
+  
+    width: 100%;
+    height: 695px;
+    // margin-top: 25px;
+    padding: 0px;
+  
+    overflow-y: hidden;
+
+    & h1{
+      font-size: 25px;
+      text-align: center;
+    }
+
+    & p{
+      font-size: 18px;
+      text-align: center;
+    }
+  }
+
+  .left_section {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
