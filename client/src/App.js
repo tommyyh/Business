@@ -25,6 +25,11 @@ import {
   setUsername,
   setProfilePic,
 } from './features/user/userSlice';
+import axios from 'axios';
+
+// Append CSRF token on every request
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 function App() {
   const ModifiedRoute = ({ Component, type }) => {

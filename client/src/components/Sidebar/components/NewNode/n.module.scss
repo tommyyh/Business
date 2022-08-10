@@ -1,0 +1,32 @@
+@import '../../../../global_css/variables.scss';
+
+.new_node {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100vh;
+  background: rgb(0, 0, 0, 0.63);
+}
+
+.new_node_inner {
+  width: 28rem;
+  height: 37rem;
+  position: fixed;
+
+  background: $sidebar;
+  border-radius: 8px;
+}
+
+.preview {
+  width: 15rem;
+  height: 15rem;
+
+  border-radius: 50%;
+}

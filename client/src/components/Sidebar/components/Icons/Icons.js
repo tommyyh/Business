@@ -18,6 +18,7 @@ const Icons = ({
   setProfileOpen,
   setNodesOpen,
   nodesOpen,
+  setNewNodeOpen,
 }) => {
   const user = useSelector((state) => state.user.value);
 

@@ -10,13 +10,16 @@ import {
 } from '../../features/user/userSlice';
 import Add from './components/Add/Add';
 import Profile from './components/Profile/Profile';
+import NewNode from './components/NewNode/NewNode';
 
 const Sidebar = () => {
   const [active, setActive] = useState('');
   const [addMsg, setAddMsg] = useState('');
   const [addOpen, setAddOpen] = useState(false);
   const [socket, setSocket] = useState(false);
+  const [nodes, setNodes] = useState([]);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [newNodeOpen, setNewNodeOpen] = useState(false);
   const friendsOpen = useSelector((state) => state.user.value).friendsOpen
     .payload;
   const nodesOpen = useSelector((state) => state.user.value).nodesOpen.payload;
@@ -41,6 +44,13 @@ const Sidebar = () => {
         />
       )}
       {profileOpen && <Profile closeProfile={() => setProfileOpen(false)} />}
+      {newNodeOpen && (
+        <NewNode
+          closeNewNode={() => setNewNodeOpen(false)}
+          setNodes={setNodes}
+          nodes={nodes}
+        />
+      )}
       <FriendsList
         friendsOpen={friendsOpen}
         setAddOpen={() => setAddOpen(true)}
@@ -48,7 +58,12 @@ const Sidebar = () => {
         socket={socket}
         setMsg={setAddMsg}
       />
-      <Nodes nodesOpen={nodesOpen} />
+      <Nodes
+        nodesOpen={nodesOpen}
+        setNewNodeOpen={() => setNewNodeOpen(true)}
+        setNodes={setNodes}
+        nodes={nodes}
+      />
       <div className={css.sidebar}>
         <Icons
           active={active}
